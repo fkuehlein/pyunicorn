@@ -1,6 +1,6 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2023 Jonathan F. Donges and pyunicorn authors
-# URL: <http://www.pik-potsdam.de/members/donges/software>
+# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
 # Please acknowledge and cite the use of this software and its authors
@@ -16,26 +16,13 @@
 Provides classes for generating and analyzing complex coupled climate networks.
 """
 
-#
-#  Import essential packages
-#
-
-#  Import NumPy for the array object and fast numerics
 import numpy as np
 
-#  Import climate_network for ClimateNetwork class
+from ..core import InteractingNetworks, GeoNetwork, GeoGrid
 from .climate_network import ClimateNetwork
 
-#  Import grid for GeoGrid class
-from ..core import InteractingNetworks, GeoNetwork, GeoGrid
-
-
-#
-#  Define class CoupledClimateNetwork
-#
 
 class CoupledClimateNetwork(InteractingNetworks, ClimateNetwork):
-
     """
     Encapsulates a coupled similarity network embedded on a spherical surface.
 
@@ -120,9 +107,9 @@ class CoupledClimateNetwork(InteractingNetworks, ClimateNetwork):
             """(number (int)) - The number of nodes in the second layer."""
 
             #  Create lists of node indices for both layers
-            self.nodes_1 = range(self.N_1)
+            self.nodes_1 = list(range(self.N_1))
             """(list (int)) - List of node indices for first layer"""
-            self.nodes_2 = range(self.N_1, self.N)
+            self.nodes_2 = list(range(self.N_1, self.N))
             """(list (int)) - List of node indices for second layer"""
 
             #  Call the constructor of the parent class ClimateNetwork

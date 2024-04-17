@@ -1,6 +1,6 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2023 Jonathan F. Donges and pyunicorn authors
-# URL: <http://www.pik-potsdam.de/members/donges/software>
+# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
 # Please acknowledge and cite the use of this software and its authors
@@ -16,29 +16,18 @@
 Provides classes for generating and analyzing complex climate networks.
 """
 
-#
-#  Import essential packages
-#
+from typing import Tuple
+from collections.abc import Hashable
 
-# array object and fast numerics
 import numpy as np
 
 from ..core._ext.types import to_cy, FIELD
 from ._ext.numerics import mutual_information
-
-#  Import progress bar for easy progress bar handling
-from ..utils import progressbar
-
-#  Import cnNetwork for Network base class
+from .climate_data import ClimateData
 from .climate_network import ClimateNetwork
-
-#
-#  Define class MutualInfoClimateNetwork
-#
 
 
 class MutualInfoClimateNetwork(ClimateNetwork):
-
     """
     Represents a mutual information climate network.
 
@@ -90,8 +79,9 @@ class MutualInfoClimateNetwork(ClimateNetwork):
         self.silence_level = silence_level
 
         #  Set instance variables
-        self.data = data
-        """(ClimateData) - The climate data used for network construction."""
+        assert isinstance(data, ClimateData)
+        self.data: ClimateData = data
+        """The climate data used for network construction."""
         self.N = self.data.grid.N
         self._prescribed_link_density = link_density
         self._winter_only = winter_only
@@ -110,6 +100,9 @@ class MutualInfoClimateNetwork(ClimateNetwork):
                                 directed=False,
                                 node_weight_type=node_weight_type,
                                 silence_level=silence_level)
+
+    def __cache_state__(self) -> Tuple[Hashable, ...]:
+        return ClimateNetwork.__cache_state__(self) + (self.data,)
 
     def __str__(self):
         """
@@ -158,96 +151,6 @@ class MutualInfoClimateNetwork(ClimateNetwork):
 
         if self.silence_level <= 1:
             print("Done!")
-
-        return mi
-
-    def _calculate_mutual_information(self, anomaly, n_bins=32):
-        """
-        Calculate the mutual information matrix at zero lag.
-
-        .. note::
-           Slow since solely based on Python and Numpy!
-
-        :type anomaly: 2D array (time, index)
-        :arg anomaly: The anomaly time series.
-        :arg int n_bins: The number of bins for estimating probability
-                     distributions.
-        :rtype: 2D array (index, index)
-        :return: the mutual information matrix at zero lag.
-        """
-        if self.silence_level <= 1:
-            print("Calculating mutual information matrix at zero lag from "
-                  "anomaly values...")
-
-        #  Define references to numpy functions for faster function calls
-        histogram = np.histogram
-        histogram2d = np.histogram2d
-        log = np.log
-
-        #  Normalize anomaly time series to zero mean and unit variance
-        self.data.normalize_time_series_array(anomaly)
-
-        #  Get faster reference to length of time series = number of samples
-        #  per grid point.
-        n_samples = anomaly.shape[0]
-
-        #  Initialize mutual information array
-        mi = np.zeros((self.N, self.N))
-
-        #  Get common range for all histograms
-        range_min = anomaly.min()
-        range_max = anomaly.max()
-
-        #  Calculate the histograms for each time series
-        p = np.zeros((self.N, n_bins))
-
-        for i in range(self.N):
-            p[i, :] = histogram(
-                anomaly[:, i], bins=n_bins, range=(range_min, range_max)
-            )[0].astype("float64")
-
-        #  Normalize by total number of samples = length of each time series
-        p /= n_samples
-
-        #  Make sure that bins with zero estimated probability are not counted
-        #  in the entropy measures.
-        p[p == 0] = 1
-
-        #  Compute the information entropies of each time series
-        H = - (p * log(p)).sum(axis=1)
-
-        # Initialize progress bar
-        if self.silence_level <= 1:
-            progress = progressbar.ProgressBar(maxval=self.N**2).start()
-
-        #  Calculate only the lower half of the MI matrix, since MI is
-        #  symmetric with respect to X and Y.
-        for i in range(self.N):
-            # Update progress bar every 10 steps
-            if self.silence_level <= 1:
-                if (i % 10) == 0:
-                    progress.update(i**2)
-
-            for j in range(i):
-                #  Calculate the joint probability distribution
-                pxy = histogram2d(
-                    anomaly[:, i], anomaly[:, j], bins=n_bins,
-                    range=((range_min, range_max),
-                           (range_min, range_max)))[0].astype("float64")
-
-                #  Normalize joint distribution
-                pxy /= n_samples
-
-                #  Compute the joint information entropy
-                pxy[pxy == 0] = 1
-                HXY = - (pxy * log(pxy)).sum()
-
-                #  ... and store the result
-                mi.itemset((i, j), H.item(i) + H.item(j) - HXY)
-                mi.itemset((j, i), mi.item((i, j)))
-
-        if self.silence_level <= 1:
-            progress.finish()
 
         return mi
 
@@ -359,11 +262,10 @@ class MutualInfoClimateNetwork(ClimateNetwork):
 
         :return float: the mutual information weighted average path length.
         """
-        if "mutual_information" not in self._path_lengths_cached:
-            self.set_link_attribute("mutual_information",
-                                    abs(self.mutual_information()))
-
-        return self.average_path_length("mutual_information")
+        return self._weighted_metric(
+            "mutual_information",
+            lambda: np.abs(self.mutual_information()),
+            "average_path_length")
 
     def mutual_information_weighted_closeness(self):
         """
@@ -372,11 +274,10 @@ class MutualInfoClimateNetwork(ClimateNetwork):
         :rtype: 1D Numpy array [index]
         :return: the mutual information weighted closeness sequence.
         """
-        if "mutual_information" not in self._path_lengths_cached:
-            self.set_link_attribute("mutual_information",
-                                    abs(self.mutual_information()))
-
-        return self.closeness("mutual_information")
+        return self._weighted_metric(
+            "mutual_information",
+            lambda: np.abs(self.mutual_information()),
+            "closeness")
 
     def local_mutual_information_weighted_vulnerability(self):
         """
@@ -385,8 +286,7 @@ class MutualInfoClimateNetwork(ClimateNetwork):
         :rtype: 1D Numpy array [index]
         :return: the mutual information weighted vulnerability sequence.
         """
-        if "mutual_information" not in self._path_lengths_cached:
-            self.set_link_attribute("mutual_information",
-                                    abs(self.mutual_information()))
-
-        return self.local_vulnerability("mutual_information")
+        return self._weighted_metric(
+            "mutual_information",
+            lambda: np.abs(self.mutual_information()),
+            "local_vulnerability")
