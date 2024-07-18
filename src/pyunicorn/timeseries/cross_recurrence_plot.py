@@ -22,9 +22,10 @@ import numpy as np
 
 from ..core.cache import Cached
 from .recurrence_plot import RecurrencePlot
-from ..core._ext.types import to_cy, DFIELD
+from ..core._ext.types import to_cy, DFIELD, NODE
 from ._ext.numerics import _manhattan_distance_matrix_crp, \
-    _euclidean_distance_matrix_crp, _supremum_distance_matrix_crp
+    _euclidean_distance_matrix_crp, _supremum_distance_matrix_crp, \
+    _vertline_dist_2D
 
 
 class CrossRecurrencePlot(RecurrencePlot):
@@ -358,6 +359,14 @@ class CrossRecurrencePlot(RecurrencePlot):
         raise NotImplementedError(
             "Line distributions are not yet "
             "available for cross-recurrence plots")
+
+    def vertline_dist_2D(self, v_dist):
+        """experimental (Fritz)"""
+        R = self.recurrence_matrix()
+        assert R.shape == v_dist.shape
+        y, N = v_dist.shape
+
+        return _vertline_dist_2D(y, N, R, to_cy(v_dist, NODE))
 
     def vertline_dist(self):
         """Not implemented yet"""

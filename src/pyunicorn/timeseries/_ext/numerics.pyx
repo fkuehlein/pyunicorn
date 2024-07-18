@@ -706,6 +706,32 @@ cdef void _line_dist(
             k = 0
         missing_flag = False
 
+def _vertline_dist_2D(
+    int y, int N,
+    ndarray[LAG_t, ndim=2] R,
+    ndarray[NODE_t, ndim=2] v_dist):
+
+    cdef:
+        int i, j, k = 0
+        bint line = False
+
+    for i in range(y):
+        for j in range(N):
+            line = R[i, j] == True
+            if line:
+                # if within line, increment length
+                k += 1
+            elif k != 0:
+                # if end of line, count line and reset length
+                v_dist[i, k-1] += 1
+                k = 0
+
+        if k != 0:
+            # at end of subspace, count the last uncounted line and reset length
+            v_dist[i, k-1] += 1
+            k = 0
+    
+    return v_dist
 
 def _vertline_dist(
         int n_time, ndarray[NODE_t, ndim=1] hist, ndarray[LAG_t, ndim=2] R):
