@@ -709,7 +709,8 @@ cdef void _line_dist(
 def _vertline_dist_2D(
     int y, int N,
     ndarray[LAG_t, ndim=2] R,
-    ndarray[NODE_t, ndim=2] v_dist):
+    ndarray[NODE_t, ndim=2] v_dist,
+    bint black):
 
     cdef:
         int i, j, k = 0
@@ -717,7 +718,7 @@ def _vertline_dist_2D(
 
     for i in range(y):
         for j in range(N):
-            line = R[i, j] == True
+            line = R[i, j] == black
             if line:
                 # if within line, increment length
                 k += 1

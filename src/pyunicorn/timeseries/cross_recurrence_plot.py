@@ -360,14 +360,6 @@ class CrossRecurrencePlot(RecurrencePlot):
             "Line distributions are not yet "
             "available for cross-recurrence plots")
 
-    def vertline_dist_2D(self, v_dist):
-        """experimental (Fritz)"""
-        R = self.recurrence_matrix()
-        assert R.shape == v_dist.shape
-        y, N = v_dist.shape
-
-        return _vertline_dist_2D(y, N, R, to_cy(v_dist, NODE))
-
     def vertline_dist(self):
         """Not implemented yet"""
         raise NotImplementedError(
@@ -379,3 +371,11 @@ class CrossRecurrencePlot(RecurrencePlot):
         raise NotImplementedError(
             "Line distributions are not yet "
             "available for cross-recurrence plots")
+
+    def vertline_dist_2D(self, v_dist, black=True):
+        """experimental (Fritz)"""
+        R = self.recurrence_matrix()
+        assert R.shape == v_dist.shape
+        y, N = v_dist.shape
+
+        return _vertline_dist_2D(y, N, R, to_cy(v_dist, NODE), black)
