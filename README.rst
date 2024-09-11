@@ -1,12 +1,21 @@
-
 =========
 pyunicorn
 =========
 
 .. image:: https://app.travis-ci.com/pik-copan/pyunicorn.svg?branch=master
   :target: https://app.travis-ci.com/github/pik-copan/pyunicorn
+
 .. image:: https://codecov.io/gh/pik-copan/pyunicorn/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/pik-copan/pyunicorn
+
+.. image:: https://img.shields.io/pypi/v/pyunicorn
+  :target: https://pypi.org/project/pyunicorn/
+
+.. image:: https://img.shields.io/pypi/pyversions/pyunicorn
+  :target: https://pypi.org/project/pyunicorn/
+
+.. image:: https://zenodo.org/badge/33720178.svg
+  :target: https://zenodo.org/badge/latestdoi/33720178
 
 About
 =====
@@ -72,11 +81,6 @@ and the `Stordalen Foundation <http://www.stordalenfoundation.no/>`_ via the
 <https://web.archive.org/web/20200212214011/http://pb-net.org/>`_ (PB.net) among
 others.
 
-Mailing list
-------------
-Not implemented yet.
-
-
 Getting Started
 ===============
 
@@ -128,6 +132,8 @@ and *Windows*, and relies on the following packages:
     (for parallelizing costly computations)
   - `Sphinx <http://sphinx-doc.org/>`_
     (for generating documentation)
+  - `Jupyter Notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`_
+    (for tutorial notebooks)
 
 
 Documentation
@@ -139,6 +145,12 @@ HTML and PDF documentation can be generated using ``Sphinx``::
     $> pip install .[docs]
     $> cd docs; make clean html latexpdf
 
+Tuturials
+---------
+
+For some example applications look into the
+`tutorials <docs/source/examples/tutorials/>`_ provided with the documentation.
+They are designed to be self-explanatory, and are set up as Jupyter notebooks.
 
 Development
 ===========
