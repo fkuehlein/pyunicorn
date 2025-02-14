@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -25,6 +25,7 @@ import numpy as np
 import scipy.sparse as sp
 
 from pyunicorn import Network
+from pyunicorn.core.network import r
 
 
 # -----------------------------------------------------------------------------
@@ -39,7 +40,7 @@ def compare_results(desired, actual, rev_perm=None):
              for rs in zip(desired.values(), actual.values())]
     else:
         if sp.issparse(desired):
-            desired, actual = desired.A, actual.A
+            desired, actual = desired.toarray(), actual.toarray()
         if isinstance(desired, np.ndarray):
             actual = actual[rev_perm]
             if len(actual.shape) == 2:
@@ -172,6 +173,23 @@ def test_nsi():
     compare_nsi(dnw, nsi_measures)
     compare_nsi(nw, nsi_measures + nsi_undirected_measures)
 
+
+# -----------------------------------------------------------------------------
+# test doctest helpers
+# -----------------------------------------------------------------------------
+
+
+def test_r():
+    arr = np.random.rand(3, 3)
+    assert r(arr).dtype == np.float64
+
+
+def test_r_type_error():
+    arr = np.array(['one', 'two', 'three'])
+    with pytest.raises(TypeError, match='obj is of unsupported dtype kind.'):
+        r(arr)
+
+
 # -----------------------------------------------------------------------------
 # Class member tests with TestNetwork
 # -----------------------------------------------------------------------------
@@ -186,7 +204,7 @@ def test_init():
 
 def test_str(capsys):
     print(Network.SmallTestNetwork())
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Network: undirected, 6 nodes, 7 links, link density 0.467.\n"
     assert out == out_ref
 
@@ -199,12 +217,12 @@ def test_undirected_copy(capsys):
     net = Network(adjacency=[[0, 1], [0, 0]], directed=True)
 
     print(net)
-    out1, err = capsys.readouterr()
+    out1 = capsys.readouterr()[0]
     out1_ref = "Network: directed, 2 nodes, 1 links, link density 0.500.\n"
     assert out1 == out1_ref
 
     print(net.undirected_copy())
-    out2, err = capsys.readouterr()
+    out2 = capsys.readouterr()[0]
     out2_ref = "Network: undirected, 2 nodes, 1 links, link density 1.000.\n"
     assert out2 == out2_ref
 
@@ -213,7 +231,7 @@ def test_splitted_copy(capsys):
     net = Network.SmallTestNetwork()
     net2 = net.splitted_copy(node=5, proportion=0.2)
     print(net2)
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Network: undirected, 7 nodes, 9 links, link density 0.429.\n"
     assert out == out_ref
 
@@ -235,12 +253,12 @@ def test_set_adjacency(capsys):
     net = Network.SmallTestNetwork()
     net.adjacency = [[0, 1], [1, 0]]
     print(net)
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Network: undirected, 2 nodes, 1 links, link density 1.000.\n"
     assert out == out_ref
 
 
-def test_set_node_weights(capsys):
+def test_set_node_weights():
     net = Network.SmallTestNetwork()
     nw_ref = [1.5, 1.7, 1.9, 2.1, 2.3, 2.5]
     assert np.allclose(net.node_weights, nw_ref)
@@ -252,7 +270,7 @@ def test_set_node_weights(capsys):
 
 def test_ErdosRenyi(capsys):
     print(Network.Model("ErdosRenyi", n_nodes=10, n_links=18))
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Generating Erdos-Renyi random graph with 10 " + \
               "nodes and 18 links...\n" + \
               "Network: undirected, 10 nodes, 18 links, link density 0.400.\n"
@@ -265,7 +283,7 @@ def test_BarabasiAlbert_igraph():
 
 
 def test_ConfigurationModel():
-    net = Network.Model("Configuration", degrees=[3 for _ in range(0, 1000)])
+    net = Network.Model("Configuration", degree=[3 for _ in range(0, 1000)])
     assert int(round(net.degree().mean())) == 3
 
 
@@ -274,15 +292,21 @@ def test_WattsStrogatz():
     assert int(round(net.degree().mean())) == 4
 
 
+def test_GrowWeights():
+    n_nodes = 10
+    weights = Network.GrowWeights(n_nodes=n_nodes)
+    assert len(weights) == n_nodes
+
+
 def test_randomly_rewire(capsys):
     net = Network.SmallTestNetwork()
     net.randomly_rewire(iterations=10)
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Randomly rewiring the network,preserving " + \
               "the degree sequence...\n"
     assert out == out_ref
     print(net)
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Network: undirected, 6 nodes, 7 links, link density 0.467.\n"
     assert out == out_ref
 
@@ -297,7 +321,7 @@ def test_edge_list():
 def test_undirected_adjacency():
     net = Network(adjacency=[[0, 1], [0, 0]], directed=True)
     adj_ref = [[0, 1], [1, 0]]
-    assert np.array_equal(net.undirected_adjacency().A, adj_ref)
+    assert np.array_equal(net.undirected_adjacency().toarray(), adj_ref)
 
 
 def test_laplacian():
@@ -305,6 +329,11 @@ def test_laplacian():
                         [0, -1, 2, 0, -1, 0], [-1, -1, 0, 2, 0, 0],
                         [-1, -1, -1, 0, 3, 0], [-1, 0, 0, 0, 0, 1]])
     assert np.allclose(Network.SmallTestNetwork().laplacian(), lap_ref)
+
+
+def test_laplacian_value_error():
+    with pytest.raises(ValueError, match='direction must be "in" or "out".'):
+        Network.SmallDirectedTestNetwork().laplacian(direction='some_other')
 
 
 def test_nsi_laplacian():

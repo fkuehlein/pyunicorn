@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 
@@ -30,7 +30,6 @@ filterwarnings = [
 parallel = true
 concurrency = ["multiprocessing"]
 source = ["src/pyunicorn"]
-omit = ["*/utils/navigator.py"]
 
 # static analysis ==============================================================
 
@@ -45,13 +44,9 @@ jobs = 0
 
 [tool.pylint."messages control"]
 disable = [
-    "duplicate-code", "useless-suppression", "suppressed-message",
-    "import-error", "invalid-name", "no-member", "unused-variable",
-    "unused-argument", "wildcard-import", "no-name-in-module", "fixme",
-    "missing-docstring", "arguments-differ", "unsubscriptable-object",
-    "no-else-return", "keyword-arg-before-vararg", "invalid-unary-operand-type",
-    "import-outside-toplevel", "arguments-out-of-order",
-    "unsupported-assignment-operation"
+    "duplicate-code", "invalid-name", "fixme",
+    "missing-docstring", "no-else-return",
+    "arguments-differ", "no-name-in-module"
 ]
 
 [tool.pylint.format]

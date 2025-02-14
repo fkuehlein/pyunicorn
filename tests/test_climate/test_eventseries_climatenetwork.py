@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -28,7 +28,7 @@ def test_str(capsys):
                                     threshold_method='quantile',
                                     threshold_values=0.8, taumax=16,
                                     threshold_types='above'))
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "Extracting network adjacency matrix by thresholding...\n" + \
               "Setting area weights according to type surface ...\n" + \
               "Setting area weights according to type surface ...\n" + \

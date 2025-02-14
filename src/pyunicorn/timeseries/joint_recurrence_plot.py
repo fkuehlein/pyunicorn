@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -64,6 +64,7 @@ class JointRecurrencePlot(RecurrencePlot):
     #  Internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, x, y, metric=("supremum", "supremum"),
                  normalize=False, lag=0, silence_level=0, **kwds):
         """
@@ -183,8 +184,8 @@ class JointRecurrencePlot(RecurrencePlot):
             #  threshold / recurrence rate
             if np.abs(lag) > x.shape[0]:
                 #  Lag must be smaller than size of recurrence plot
-                raise ValueError("Delay value (lag) must not exceed length of \
-                                 time series!")
+                raise ValueError("Delay value (lag) must not exceed length of "
+                                 "time series!")
             if threshold is not None:
                 #  Calculate the recurrence matrix R using the radius of
                 #  neighborhood threshold
@@ -200,16 +201,16 @@ class JointRecurrencePlot(RecurrencePlot):
                 JointRecurrencePlot.\
                     set_fixed_recurrence_rate(self, recurrence_rate)
             else:
-                raise NameError("Please give either threshold or \
-                                recurrence_rate to construct the joint \
-                                recurrence plot!")
+                raise NameError("Please give either threshold or "
+                                "recurrence_rate to construct the joint "
+                                "recurrence plot!")
 
             #  No treatment of missing values yet!
             self.missing_values = False
 
         else:
-            raise ValueError("Both time series x and y need to have the same \
-                             length!")
+            raise ValueError("Both time series x and y need to have the same "
+                             "length!")
 
     def __str__(self):
         """

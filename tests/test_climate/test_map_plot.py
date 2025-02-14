@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -14,11 +14,14 @@
 
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 
 from pyunicorn.climate.climate_data import ClimateData
 from pyunicorn.climate.tsonis import TsonisClimateNetwork
 from pyunicorn.climate.map_plot import MapPlot
+
+matplotlib.use('Agg')
 
 
 # pylint: disable=too-few-public-methods
@@ -48,8 +51,7 @@ class TestMapPlot:
         map_plot = MapPlot(data.grid, title)
         assert map_plot.title == title
 
-        # plot with suppressed display
-        plt.ioff()
+        # plot
         map_plot.plot(net.degree(), "Degree")
         assert plt.gca().get_title() == title
         plt.close()

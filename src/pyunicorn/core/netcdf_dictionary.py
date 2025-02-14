@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -118,7 +118,7 @@ class NetCDFDictionary:
         content = {"global_attributes": {}, "dimensions": {}, "variables": {}}
         #  Copy all global attributes and all dimensions
         content["global_attributes"] = cdf.__dict__
-        for dim_name, dim_obj in cdf.dimensions.iteritems():
+        for dim_name, _ in cdf.dimensions.iteritems():
             content["dimensions"][dim_name] = len(cdf.dimensions[dim_name])
 
         #  Loop over variables

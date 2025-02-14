@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -162,8 +162,8 @@ class CouplingAnalysisPurePython:
             #  Correct for grid points with zero variance in their time series
             normalized_array[t][numpy.isnan(normalized_array[t])] = 0
 
-        return self._calculate_cc(normalized_array, corr_range=corr_range,
-                                  tau_max=tau_max, lag_mode=lag_mode)
+        return self._calculate_cc(normalized_array, tau_max=tau_max,
+                                  lag_mode=lag_mode)
 
     def shuffled_surrogate_for_cc(self, fourier=False, tau_max=1,
                                   lag_mode='all'):
@@ -177,6 +177,11 @@ class CouplingAnalysisPurePython:
         :rtype: 3D numpy array (float) [index, index, index]
         :return: correlation matrix with different lag_mode choices
         """
+        # pylint: disable=possibly-used-before-assignment
+
+        if lag_mode not in self.lag_modi:
+            raise ValueError('lag_mode must be "all", "sum" or "max".')
+
         corr_range = self.total_time - 2*tau_max
 
         # Shuffle a copy of dataarray separatly for each node
@@ -194,8 +199,7 @@ class CouplingAnalysisPurePython:
         sample_array[0] /= sample_array[0].std(axis=1).reshape(self.N, 1)
         sample_array[0, numpy.isnan(sample_array[0])] = 0
 
-        res = self._calculate_cc(sample_array, corr_range=corr_range,
-                                 tau_max=0, lag_mode='all')
+        res = self._calculate_cc(sample_array, tau_max=0, lag_mode='all')
 
         if lag_mode == 'all':
             corrmat = numpy.repeat(res, 2*tau_max + 1, axis=0)
@@ -238,10 +242,10 @@ class CouplingAnalysisPurePython:
             sample_array[t] /= sample_array[t].std(axis=1).reshape(self.N, 1)
             sample_array[t][numpy.isnan(sample_array[t])] = 0
 
-        return self._calculate_cc(sample_array, corr_range=sample_range,
-                                  tau_max=tau_max, lag_mode=lag_mode)
+        return self._calculate_cc(sample_array, tau_max=tau_max,
+                                  lag_mode=lag_mode)
 
-    def _calculate_cc(self, array, corr_range, tau_max, lag_mode):
+    def _calculate_cc(self, array, tau_max, lag_mode):
         """
         Returns the CC matrix.
 
@@ -253,6 +257,7 @@ class CouplingAnalysisPurePython:
         ## lag_mode dict
         mode = self.lag_modi[lag_mode]
         """
+        # pylint: disable=used-before-assignment
 
         # lag_mode dict
         mode = self.lag_modi[lag_mode]
@@ -363,7 +368,7 @@ class CouplingAnalysisPurePython:
         corr_range = self.total_time - 2*tau_max
 
         # get the bin quantile steps
-        bin_edge = numpy.ceil(corr_range/float(bins))
+        bin_edge = numpy.ceil(corr_range/float(bins)).astype(int)
 
         symbolic_array = numpy.empty((2*tau_max + 1, self.N, corr_range),
                                      dtype=dtype)
@@ -385,7 +390,7 @@ class CouplingAnalysisPurePython:
                                   bins=bins, tau_max=tau_max,
                                   lag_mode=lag_mode)
 
-    def mutual_information_edges(self, bins=16, tau=0, lag_mode='all'):
+    def mutual_information_edges(self, bins=16, tau=0):
         """
         Returns the normalized mutual information from all pairs of nodes from
         a range of time lags.
@@ -404,20 +409,8 @@ class CouplingAnalysisPurePython:
         MI is calculated about corr_range and with the other time series
         shifted by tau
 
-        Possible choices for lag_mode:
-
-        - "all" will return the full function for all lags, possible large
-          memory need if only_tri is True, only the upper triangle contains the
-          values, the lower one is zeros
-        - "sum" will return the sum over positive and negative lags seperatly,
-          each inclunding tau=0 corrmat[0] is the positive sum, corrmat[1] the
-          negative sum
-        - "max" will return only the maximum coupling (in corrmat[0]) and its
-          lag (in corrmat[1])
-
         :arg int bins: number of bins for estimating MI
         :arg int tau_max: maximum lag in both directions, including last lag
-        :arg str lag_mode: output mode
         :rtype: 2D numpy array (float) [index, index]
         :return: bin edges for zero lag
         """
@@ -446,6 +439,11 @@ class CouplingAnalysisPurePython:
         :rtype: 3D numpy array (float) [index, index, index]
         :return: correlation matrix with different lag_mode choices
         """
+        # pylint: disable=possibly-used-before-assignment
+
+        if lag_mode not in self.lag_modi:
+            raise ValueError('lag_mode must be "all", "sum" or "max".')
+
         if bins < 255:
             dtype = 'uint8'
         else:
@@ -464,7 +462,7 @@ class CouplingAnalysisPurePython:
                 numpy.random.shuffle(array[i])
 
         # get the bin quantile steps
-        bin_edge = numpy.ceil(corr_range/float(bins))
+        bin_edge = numpy.ceil(corr_range/float(bins)).astype(int)
 
         symbolic_array = numpy.empty((1, self.N, corr_range), dtype=dtype)
 
@@ -543,6 +541,7 @@ class CouplingAnalysisPurePython:
                                   bins=bins, tau_max=tau_max,
                                   lag_mode=lag_mode)
 
+    # pylint: disable=too-many-positional-arguments
     def _calculate_mi(self, array, corr_range, bins, tau_max, lag_mode):
         """
         Returns the mi matrix.
@@ -553,6 +552,7 @@ class CouplingAnalysisPurePython:
         :rtype: 3D numpy array (float) [index, index, index]
         :return: correlation matrix with different lag_mode choices
         """
+        # pylint: disable=used-before-assignment
 
         # lag_mode dict
         mode = self.lag_modi[lag_mode]

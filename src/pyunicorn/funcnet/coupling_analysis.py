@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -221,6 +221,7 @@ class CouplingAnalysis:
         else:
             return None
 
+    # pylint: disable=too-many-positional-arguments
     def mutual_information(self, tau_max=0, estimator='knn',
                            knn=10, bins=6, lag_mode='max'):
         r"""
@@ -312,6 +313,8 @@ class CouplingAnalysis:
                   " unreliable estimation using MI estimator")
         assert numpy.isnan(data).sum() == 0, "NaNs in the data"
         assert tau_max >= 0, f"{tau_max =}"
+        if estimator not in ('knn', 'binning', 'gauss'):
+            raise ValueError('estimator must be "knn", "binning" or "gauss".')
         if estimator == 'knn':
             assert 1 <= knn <= T/2., f"{knn =}"
 
@@ -388,6 +391,7 @@ class CouplingAnalysis:
                                 numpy.dot(x, x) * numpy.dot(y, y)))
 
                     if lag_mode == 'max':
+                        # pylint: disable=possibly-used-before-assignment
                         if ixy_z > maximum:
                             maximum = ixy_z
                             lag_at_max = tau
@@ -406,6 +410,7 @@ class CouplingAnalysis:
         else:
             return None
 
+    # pylint: disable=too-many-positional-arguments
     def information_transfer(self, tau_max=0, estimator='knn',
                              knn=10, past=1, cond_mode='ity', lag_mode='max'):
         r"""
@@ -508,6 +513,8 @@ class CouplingAnalysis:
             raise ValueError("NaNs in the data")
         if tau_max < 0:
             raise ValueError(f"tau_max = {tau_max}, but 0 <= tau_max")
+        if estimator not in ('knn', 'binning', 'gauss'):
+            raise ValueError('estimator must be "knn", "binning" or "gauss".')
         if estimator == 'knn':
             if knn > T/2. or knn < 1:
                 raise ValueError(f"knn = {knn}, should be between 1 and T/2")
@@ -580,6 +587,7 @@ class CouplingAnalysis:
                                 numpy.dot(x, x) * numpy.dot(y, y)))
 
                     if lag_mode == 'max':
+                        # pylint: disable=possibly-used-before-assignment
                         if ixy_z > maximum:
                             maximum = ixy_z
                             lag_at_max = tau
@@ -687,7 +695,7 @@ class CouplingAnalysis:
         dim, T = array.shape
 
         # get the bin quantile steps
-        bin_edge = numpy.ceil(T/float(bins))
+        bin_edge = numpy.ceil(T/float(bins)).astype(int)
 
         symb_array = numpy.zeros((dim, T), dtype=INT32TYPE)
 

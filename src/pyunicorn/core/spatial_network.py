@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -43,6 +43,7 @@ class SpatialNetwork(Network):
     #  Definitions of internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, grid: Grid, adjacency=None, edge_list=None,
                  directed=False, silence_level=0):
         """
@@ -80,6 +81,7 @@ class SpatialNetwork(Network):
     #  Load and save GeoNetwork object
     #
 
+    # pylint: disable=keyword-arg-before-vararg
     def save(self, filename, fileformat=None, *args, **kwds):
         """
         Save the SpatialNetwork object to files.
@@ -128,6 +130,7 @@ class SpatialNetwork(Network):
         if filename_grid is not None:
             self.grid.save(filename=filename_grid)
 
+    # pylint: disable=keyword-arg-before-vararg
     @staticmethod
     def Load(filename, fileformat=None, silence_level=0, *args, **kwds):
         """
@@ -504,7 +507,7 @@ class SpatialNetwork(Network):
 
     #  (Un)directed average link distances
 
-    def _calculate_general_average_link_distance(self, adjacency, degrees,
+    def _calculate_general_average_link_distance(self, adjacency, degree,
                                                  geometry_corrected=False):
         """
         Return general average link distances (:math:`ALD`).
@@ -520,20 +523,19 @@ class SpatialNetwork(Network):
 
         :type adjacency: 2D array [index, index]
         :arg adjacency: The adjacency matrix.
-        :type degrees: 1D array [index]
-        :arg degrees: The degree sequence.
+        :type degree: 1D array [index]
+        :arg degree: The degree sequence.
         :arg bool geometry_corrected: Toggles geometry correction.
         :rtype: 1D array [index]
         :return: the general average link distance sequence.
         """
         D = self.grid.distance()
-        k = self.degree()
 
         average_link_distance = np.zeros(self.N)
 
-        #  Normalize by degree, not by number of nodes!!!
-        average_link_distance[k != 0] = \
-            (D * adjacency).sum(axis=1)[k != 0] / k[k != 0]
+        #  Normalize by degree, not by number of nodes
+        average_link_distance[degree != 0] = \
+            (D * adjacency).sum(axis=1)[degree != 0] / degree[degree != 0]
 
         if geometry_corrected:
             #  Calculate the average link distance for a fully connected
@@ -570,7 +572,7 @@ class SpatialNetwork(Network):
         if self.silence_level <= 1:
             print("Calculating average link distance...")
 
-        A = self.undirected_adjacency().A
+        A = self.undirected_adjacency().toarray()
         degree = self.degree()
 
         return self._calculate_general_average_link_distance(
@@ -647,7 +649,7 @@ class SpatialNetwork(Network):
         if self.silence_level <= 1:
             print("Calculating maximum link distance...")
 
-        A = self.undirected_adjacency().A
+        A = self.undirected_adjacency().toarray()
         D = self.grid.distance()
 
         maximum_link_distance = (D * A).max(axis=1)

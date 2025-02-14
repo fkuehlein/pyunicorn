@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -17,6 +17,9 @@ Provides classes for the analysis of dynamical systems and time series based
 on recurrence plots, including measures of recurrence quantification
 analysis (RQA) and recurrence network analysis.
 """
+
+from typing import Tuple
+from collections.abc import Hashable
 
 # array object and fast numerics
 import numpy as np
@@ -64,8 +67,9 @@ class InterSystemRecurrenceNetwork(InteractingNetworks):
     #  Internal methods
     #
 
-    def __init__(self, x, y, metric="supremum",
-                 normalize=False, silence_level=0, **kwds):
+    # pylint: disable=too-many-positional-arguments
+    def __init__(self, x, y, metric="supremum", normalize=False,
+                 silence_level=0, **kwds):
         """
         Initialize an instance of InterSystemRecurrenceNetwork (ISRN).
 
@@ -211,22 +215,8 @@ class InterSystemRecurrenceNetwork(InteractingNetworks):
     #  Service methods
     #
 
-    def clear_cache(self):
-        """
-        Clean up memory by deleting information that can be recalculated from
-        basic data.
-
-        Extends the clean up methods of the parent classes.
-        """
-        #  Call clean up of RecurrencePlot objects
-        self.rp_x.clear_cache()
-        self.rp_y.clear_cache()
-
-        #  Call clean up of CrossRecurrencePlot object
-        self.crp_xy.clear_cache()
-
-        #  Call clean up of InteractingNetworks
-        InteractingNetworks.clear_cache(self)
+    def __cache_state__(self) -> Tuple[Hashable, ...]:
+        return (self.rp_x, self.rp_x, self.crp_xy,)
 
     #
     #  Methods to handle inter system recurrence networks
@@ -242,7 +232,6 @@ class InterSystemRecurrenceNetwork(InteractingNetworks):
         #  Shortcuts
         N = self.N
         N_x = self.N_x
-        N_y = self.N_y
 
         #  Init
         ISRM = np.zeros((N, N))

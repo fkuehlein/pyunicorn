@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -46,6 +46,7 @@ class VisibilityGraph(InteractingNetworks):
     #  Internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, time_series, timings=None, missing_values=False,
                  horizontal=False, silence_level=0):
         """

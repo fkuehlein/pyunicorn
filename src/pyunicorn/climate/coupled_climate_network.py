@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -43,6 +43,7 @@ class CoupledClimateNetwork(InteractingNetworks, ClimateNetwork):
     #  Definitions of internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, grid_1, grid_2, similarity_measure, threshold=None,
                  link_density=None, non_local=False, directed=False,
                  node_weight_type="surface", silence_level=0):

@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -41,6 +41,7 @@ class ClimateNetwork(GeoNetwork):
     #  Definitions of internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, grid: GeoGrid, similarity_measure: np.ndarray,
                  threshold=None, link_density=None, non_local=False,
                  directed=False, node_weight_type="surface", silence_level=0):
@@ -132,7 +133,7 @@ class ClimateNetwork(GeoNetwork):
         Regenerate the current climate network according to a new similarity
         measure.
         """
-        ClimateNetwork.__init__(self, grid=self.data.grid,
+        ClimateNetwork.__init__(self, grid=self.grid,
                                 similarity_measure=self._similarity_measure,
                                 threshold=self._threshold,
                                 link_density=self.link_density,
@@ -145,6 +146,7 @@ class ClimateNetwork(GeoNetwork):
     #  Load and save ClimateNetwork object
     #
 
+    # pylint: disable=keyword-arg-before-vararg
     def save(self, filename, fileformat=None, *args, **kwds):
         """
         Save the ClimateNetwork object to files.
@@ -202,6 +204,7 @@ class ClimateNetwork(GeoNetwork):
             similarity_measure = self.similarity_measure()
             similarity_measure.dump(filename_similarity_measure)
 
+    # pylint: disable=keyword-arg-before-vararg
     @staticmethod
     def Load(filename, fileformat=None, silence_level=0, *args, **kwds):
         """

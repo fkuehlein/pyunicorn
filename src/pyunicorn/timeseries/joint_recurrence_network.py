@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -68,6 +68,7 @@ class JointRecurrenceNetwork(JointRecurrencePlot, Network):
     #  Internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, x, y, metric=("supremum", "supremum"),
                  normalize=False, lag=0, silence_level=0, **kwds):
         """
@@ -157,18 +158,6 @@ class JointRecurrenceNetwork(JointRecurrencePlot, Network):
         return ("JointRecurrenceNetwork:\n"
                 f"{JointRecurrencePlot.__str__(self)}\n"
                 f"{Network.__str__(self)}")
-
-    def clear_cache(self):
-        """
-        Clean up memory by deleting information that can be recalculated from
-        basic data.
-
-        Extends the clean up methods of the parent classes.
-        """
-        #  Call clean up of RecurrencePlot
-        JointRecurrencePlot.clear_cache(self)
-        #  Call clean up of Network
-        Network.clear_cache(self)
 
     #
     #  Methods to handle recurrence networks

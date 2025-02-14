@@ -4,7 +4,7 @@ Contributions
 
 Copyright
 ---------
-|copy| 2008-2024 Jonathan F. Donges and pyunicorn authors.
+\ |copy| 2008-2025 Jonathan F. Donges and pyunicorn authors.
 
 License
 -------
@@ -72,12 +72,14 @@ Contributors
   maintained package)
 - `Ronja Hotz <ronja.hotz@yahoo.de>`_ (added a tutorial
   in `#190 <https://github.com/pik-copan/pyunicorn/pull/190>`_)
-- `Fritz Kühlein <fritz.kuehlein@student.uni-halle.de>`_
+- `Fritz Kühlein <fritzku@pik-potsdam.de>`_
   (fixed numerous bugs and style issues, improved test coverage and CI,
   integrated tutorial notebooks into documentation,
-  maintained package and managed release)
+  maintained package and managed releases)
 
 Acknowledgements
 ----------------
 - Travis-CI (https://www.travis-ci.com/) for providing free builds for this open
   source project.
+
+.. |copy|   unicode:: U+000A9 .. COPYRIGHT SIGN

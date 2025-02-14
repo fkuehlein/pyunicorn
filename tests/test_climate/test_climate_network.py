@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -21,7 +21,7 @@ from pyunicorn.climate.climate_network import ClimateNetwork
 
 def test_str(capsys):
     print(ClimateNetwork.SmallTestNetwork())
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "ClimateNetwork:\n" + \
               "GeoNetwork:\n" + \
               "SpatialNetwork:\n" + \

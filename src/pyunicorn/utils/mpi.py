@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -29,16 +29,19 @@ Save the following lines in ``demo_mpi.py`` and run::
 
 1. Use master/slaves parallelization with the Network class:
 
-   .. literalinclude:: ../../../../examples/modules/mpi/network_large.py
+   .. literalinclude::
+        ../../../../docs/source/examples/modules/mpi/network_large.py
 
 2. Do a Monte Carlo simulation as master/slaves:
 
-   .. literalinclude:: ../../../../examples/modules/mpi/network_mc.py
+   .. literalinclude::
+        ../../../../docs/source/examples/modules/mpi/network_mc.py
 
 3. Do a parameter scan without communication with a master, and just save
    the results in files:
 
-   .. literalinclude:: ../../../../examples/modules/mpi/network_scan_no_comm.py
+   .. literalinclude::
+        ../../../../docs/source/examples/modules/mpi/network_scan_no_comm.py
 
 """
 

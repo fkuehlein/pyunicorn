@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -37,7 +37,7 @@ def test_EventSeries_init():
 
 
 def test_make_event_matrix():
-    data, tstamps = create_test_data()
+    data = create_test_data()[0]
 
     # Test 'value' method for first variable > 0.99 and second variable < 0.0
     thresholds1 = np.array([0.99, 0.0])
@@ -81,7 +81,7 @@ def test_make_event_matrix():
     assert np.all(test_object2.get_event_matrix() == eventmatrix)
 
 
-def eca_second_implementaion(eventseriesx, eventseriesy, ts1=None,
+def eca_second_implementaion(eventseriesx, eventseriesy, *, ts1=None,
                              ts2=None, deltaT=3, lag=0.0):
     """
     Test implementation of event coincidence analysis
@@ -188,7 +188,7 @@ def test_eca():
                                    atol=1e-04)
 
 
-def eca_implementation_for_symmetric_window(es1, es2, ts1=None, ts2=None,
+def eca_implementation_for_symmetric_window(es1, es2, *, ts1=None, ts2=None,
                                             taumax=3.0, lag=0.0):
     # Get time indices
     if ts1 is None:
@@ -231,7 +231,7 @@ def eca_implementation_for_symmetric_window(es1, es2, ts1=None, ts2=None,
             coincidence21 / (l2 - s2start - s2end))
 
 
-def es_second_implementation(es1, es2, ts1=None, ts2=None, taumax=np.inf,
+def es_second_implementation(es1, es2, *, ts1=None, ts2=None, taumax=np.inf,
                              lag=0.0):
     """
     Calculates the directed event synchronization from two event series X

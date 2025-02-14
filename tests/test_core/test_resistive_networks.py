@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -25,7 +25,7 @@ from pyunicorn import ResNetwork
 
 def test_init(capsys):
     print(ResNetwork.SmallTestNetwork())
-    out, err = capsys.readouterr()
+    out = capsys.readouterr()[0]
     out_ref = "ResNetwork:\nGeoNetwork:\nSpatialNetwork:\n" + \
               "Network: undirected, 5 nodes, 5 links, link density 0.500." + \
               "\nGeographical boundaries:\n" + \

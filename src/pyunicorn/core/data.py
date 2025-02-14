@@ -1,5 +1,5 @@
 # This file is part of pyunicorn.
-# Copyright (C) 2008--2024 Jonathan F. Donges and pyunicorn authors
+# Copyright (C) 2008--2025 Jonathan F. Donges and pyunicorn authors
 # URL: <https://www.pik-potsdam.de/members/donges/software-2/software>
 # License: BSD (3-clause)
 #
@@ -47,6 +47,7 @@ class Data:
     #  Define internal methods
     #
 
+    # pylint: disable=too-many-positional-arguments
     def __init__(self, observable: np.ndarray, grid: GeoGrid,
                  observable_name: str = None, observable_long_name: str = None,
                  window: Optional[dict] = None, silence_level: int = 0):
@@ -129,6 +130,7 @@ class Data:
     #
 
     @classmethod
+    # pylint: disable=too-many-positional-arguments
     def Load(cls, file_name, observable_name, file_type, dimension_names=None,
              window=None, vertical_level=None, silence_level=0):
         """
@@ -232,6 +234,7 @@ class Data:
     #
 
     @classmethod
+    # pylint: disable=too-many-positional-arguments
     def _get_netcdf_data(cls, file_name, file_type, observable_name,
                          dimension_names, vertical_level=None,
                          silence_level=0):
@@ -337,6 +340,7 @@ class Data:
         return res
 
     @classmethod
+    # pylint: disable=too-many-positional-arguments
     def _load_data(cls, file_name, file_type, observable_name,
                    dimension_names, vertical_level=None, silence_level=0):
         """
@@ -572,9 +576,7 @@ class Data:
             array /= scale_factor
             scaled_array = array.astype('uint8')
         else:
-            print(f"Data type {var_type} not supported!")
-            scale_factor = 1.
-            add_offset = 0.
+            raise ValueError(f"Data type {var_type} not supported.")
 
         return (scaled_array, scale_factor, add_offset, actual_range)
 
