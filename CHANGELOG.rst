@@ -27,6 +27,8 @@ Package:
   (`1c94599 <https://github.com/pik-copan/pyunicorn/commit/1c94599e70590d4365a65e5fcd1806df9ac04510>`_)
 - simplified CI configuration wrt. limiting of processes
   (`d8bc4a0 <https://github.com/pik-copan/pyunicorn/commit/d8bc4a0163abd279f9ff7ceea6bbbf78adb89e70>`_)
+- updated dependencies and CI to ``h5netcdf>=1.8.1``
+  (`a88ab4d <https://github.com/pik-copan/pyunicorn/commit/a88ab4d08231f09e2ae5ff8024cbf39bba0d7e7a>`_)
 
 Documentation:
 
@@ -37,6 +39,8 @@ Bug Fixes:
 - updated download URL for test data 
   (`40cd2b9 <https://github.com/pik-copan/pyunicorn/commit/40cd2b96b69a377d1d300b399982ef171fedb6d2>`_,
   `#251 <https://github.com/pik-copan/pyunicorn/issues/251>`_)
+- adapted ``Network`` to API of ``scipy>=1.19``
+  (`031fdfe <https://github.com/pik-copan/pyunicorn/commit/031fdfeddff4947941cf221f77ac78f5be5f58dd>`_)
 
 0.8.2
 -----
