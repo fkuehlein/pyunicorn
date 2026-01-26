@@ -56,7 +56,7 @@ dependencies = [
   "numpy >= 1.24",
   "scipy >= 1.10",
   "igraph >= 0.11",
-  "h5netcdf >= 1.1",
+  "h5netcdf[h5py] >= 1.8",
   "tqdm >= 4.66",
 ]
 
