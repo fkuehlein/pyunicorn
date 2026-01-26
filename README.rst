@@ -150,7 +150,7 @@ Tutorials
 ---------
 
 For some example applications look into the
-`tutorials <docs/source/examples/tutorials/>`_ provided with the documentation.
+`tutorials <https://github.com/pik-copan/pyunicorn/tree/master/docs/source/examples/tutorials>`_ provided with the documentation.
 They are designed to be self-explanatory, and are set up as Jupyter notebooks.
 
 Development
