@@ -3631,7 +3631,7 @@ class Network(Cached):
 
                 # Kirchhoff matrix
                 sp_M = sp.diags([subnetwork.indegree()], [0],
-                                shape=(N, N), format='csc') - sp_A
+                                shape=(N, N), format='csc', dtype=None) - sp_A
 
                 # invert it without last row/col
                 # FIXME: in rare cases (when there is an exact twin to the last
