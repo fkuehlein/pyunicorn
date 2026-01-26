@@ -500,17 +500,17 @@ class Network(Cached):
     def sp_diag_w(self):
         """Sparse diagonal matrix of node weights"""
         return sp.diags([self.node_weights], [0],
-                        shape=(self.N, self.N), format='csc')
+                        shape=(self.N, self.N), format='csc', dtype=None)
 
     def sp_diag_w_inv(self):
         """Sparse diagonal matrix of inverse node weights"""
         return sp.diags([1 / self.node_weights], [0],
-                        shape=(self.N, self.N), format='csc')
+                        shape=(self.N, self.N), format='csc', dtype=None)
 
     def sp_diag_sqrt_w(self):
         """Sparse diagonal matrix of square roots of node weights"""
         return sp.diags([np.sqrt(self.node_weights)], [0],
-                        shape=(self.N, self.N), format='csc')
+                        shape=(self.N, self.N), format='csc', dtype=None)
 
     #
     #  Load and save Network object
@@ -1389,12 +1389,12 @@ class Network(Cached):
     def sp_nsi_diag_k(self):
         """Sparse diagonal matrix of n.s.i. degrees"""
         return sp.diags([self.nsi_degree()], [0],
-                        shape=(self.N, self.N), format='csc')
+                        shape=(self.N, self.N), format='csc', dtype=None)
 
     def sp_nsi_diag_k_inv(self):
         """Sparse diagonal matrix of inverse n.s.i. degrees"""
         return sp.diags([np.power(self.nsi_degree(), -1)], [0],
-                        shape=(self.N, self.N), format='csc')
+                        shape=(self.N, self.N), format='csc', dtype=None)
 
     @Cached.method(attrs=("_mut_nw", "_mut_la"))
     def nsi_degree(self, key=None, typical_weight=None):
@@ -1549,7 +1549,7 @@ class Network(Cached):
         """
         assert key is None, "nsi_bildegree is not implemented with key yet"
         Ap = self.sp_Aplus()
-        res = (Ap * sp.diags(self.node_weights) * Ap).diagonal()
+        res = (Ap * sp.diags(self.node_weights, dtype=None) * Ap).diagonal()
         if typical_weight is None:
             return res
         else:
