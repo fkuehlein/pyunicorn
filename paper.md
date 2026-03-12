@@ -37,12 +37,6 @@ bibliography: paper.bib
 
 *Prompt: A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*
 
-Two key arguments for this (follow-up) publication:
-1. pyunicorn is now versatile and packed as ever and deserves an up-to-date publication
-2. it makes sense to keep highly specialised, although "legacy" code alive and maintained over time
-
----
-
 Pyunicorn is a toolbox for complex systems analysis that is written in Python and C.
 
 It was first published with @donges_unified_2015 and has been maintained as an open source project since. The library has continuously grown over the years as scientists and users took the chance to contribute. These contributions have originated both from within and outside the direct proximity of the initial developers. The project has been maintained by young researchers, most of which master students supervised by J. Donges, B. Beronov and R. Donner.
@@ -59,6 +53,10 @@ More importantly though, Pyunicorn is now a more versatile and robust tool than 
 # Statement of need
 
 *Prompt: A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*
+
+Two key arguments for the *need* of this follow-up *publication* (not the package itself):
+1. pyunicorn is now versatile and packed as ever and deserves an up-to-date publication
+2. it makes sense to keep highly specialised, although "legacy" code alive and maintained over time
 
 
 Research purpose: See Pyunicorn paper
@@ -77,54 +75,53 @@ Therefore: *Need* to maintain such software over a long time, with minimal resou
 
 *Prompt: A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*
 
-There are a row of Python libraries that cover network and graph (networkx, igraph) calculations as well as timeseries analysis, Recurrence Analysis, Eventseries Analysis (?) and such. 
+Pyunicorn, is designed to unify methods from complex network theory and timeseries analysis under a single hood and – more importantly – deriving further specialised and more uncommon methods from this synthesis. Many of these derived methods have been established by affiliated research groups themselves and Pyunicorn currently provides their only public and maintained implementation.
 
-Pyunicorn, is unique in *uni*fying these methods under a single hood and – more importantly – deriving further methods from this What's more, it contains methods that go beyond that and that result from this very unification.
+A row of Python libraries cover different aspects of Pyunicorn's functionality respectively. [`PyRQA`](https://pypi.org/project/PyRQA/) is a more recently published tool for performing recurrence quantitative analysis on large datasets effectively [@rawald_pyrqa_2017]. Users who seek to perform surrogate timeseries generation can resort to the Surrogate Modeling Toolbox [`smt`](https://pypi.org/project/smt/). Moreover, long established Python libraries such as [`networkx`](https://networkx.org) and [`python-igraph`](https://python.igraph.org) extensively cover network and graph calculations.
 
-Some of these more uncommon methods have been developed by our original contributors themselves and their implementation is currently only available in Pyunicorn. 
+Yet, over 10 years after its first publication, Pyunicorn currently still finds itself in the unique position to feature functionality that bridges many of these fields and adds to established packages. In fact, Pyunicorn's backbone `Network` class is built around `Graph` objects from `python-igraph`, but expands it to variations of network theory such as Interacting Networks, node-splitting-invariant measures, etc. (to be improved).
 
-> "While pyunicorn’s development has mostly accompanied advances in climatology and paleoclimatology, the generality of the network approach and its implementation of extensions to standard complex networks like spatio-temporal networks, node weighted measures, coupled functional networks and recurrence networks render the software widely applicable in numerous fields, e.g. medicine, neuroscience, sociology, economics and finance."
-
-The contained methods have especially been developed and applied in the context of climate and earth system sciences. Yet, due to the generality of the network approach, they are more widely applicable.
+The contained methods have especially been developed and applied in the context of climate and earth system sciences. The generality of the network approach, however, allows for a much wider applicability.
 
 With new scientific software being published more and more frequently, we aim to put some counterweight on the maintenance of legacy code. Pyunicorn features specialised methods that are far from exploited and as valuable as ever.
+
+A selection of research applications of Pyunicorn is described in \ref{research_impact_statement}.
 
 
 # Software design
 
 *Prompt: An explanation of the trade-offs you weighed, the design/architecture you chose, and why it matters for your research application. This should demonstrate meaningful design thinking beyond a superficial code structure description.*
 
-> "pyunicorn is intended as an integrated container for a host of conceptionally related methods which have been developed and applied by the involved research groups for many years." @donges_unified_2015
+Pyunicorn 1.0 continues the original implementation philosophy of the package, which is to provide a common container for conceptually related methods co-developed in affiliated research groups. ~~Pyunicorn integrates these methods in a common format and keep them available for future research.~~ By adopting a  modular class-inheritance structure, the mathematical relationships of methods are intuitively reflected.
 
-Pyunicorn 1.0 continues the original implementation philosophy of the package, which is to provide a container for conceptually related methods that derive from the synthesis of complex network and timeseries analysis.
+This intuition is, for example, realised in the `RecurrenceNetwork` class, which is a child of the `Network` and `RecurrencePlot` classes (see fig. 2): The class structure reflects the "mathematical definition and historical development of recurrence network analysis" [@donges_unified_2015].
 
-> "inheritance and composition hierarchy reflects the relationships between the analysis methods in use"
+![Pyunicorn currently contains 6 modules.](img/module_overview.png)
 
-Its modular inheritance structure aims to intuitively reflect its mathematical grounding.
+![Inheritance and composition hierarchies reflect the mathematical relationships of methods.](img/class_inheritance.png)
 
-This intuition is, for example, realised/manifested in the `RecurrenceNetwork` class, which is a child of the `Network` and `RecurrencePlot` classes: The class structure reflects the "mathematical definition and historical development of recurrence network analysis". (add figure from paper?)
+The package structure is thoroughly described in @donges_unified_2015 and in the package documentation.
 
-Code structure description to exemplify:
+The continuation of the above described design principles can be illustrated with more recent additions to the package. For example, the `EventSeriesClimateNetwork` inherits from the additional `EventSeries` and the established `ClimateNetwork` classes. Also, the newly added `Cached` class neatly integrates into the object oriented package design. It acts as an abstract base class to add advanced memoization functionality to key classes of Pyunicorn. Additional functionality in the `RecurrenceNetwork` class exemplifies how the package is continuously extended to serve specific research interests: Requested by a young researcher affiliated with our group (Simon Fahrländer) and after consultation with one of the originators of Recurrence Network theory (Jobst Heitzig), we revised the implementation of node-splitting-invariant shortest-path betweenness to enable its calculation on directed networks in a mathematically sound way. Pyunicorn not only provides the implementation of these specialised methods, but also acts as a catalyst for exchange of knowledge on the underlying theory.
 
-Pyunicorn currently contains 6 modules: (add small table)
-- core
-- climate
-- timeseries
-- eventseries
-- funcnet
-- utils
+For a full record of additions to the package since its original publication see our [Changelog](https://github.com/pik-copan/pyunicorn/blob/master/CHANGELOG.rst).
 
-~~The `core` module contains the backbone `Network` class and further base classes of the library. The `climate` module contains the `ClimateNetwork` and subclasses, as well as an additional class to plot maps using `cartopy`.~~
-
-The class structure is thoroughly described in @donges_unified_2015 as well as the package documentation.
 
 - Recent additions:
-  - CI with support for windows and linux systems
-  - plotting maps with cartopy
-  - overhauled caching
+  - CI with support for linux and windows systems
+  - additional classes
+    - SpatialNetwork
+    - EventSeries, EventSeriesClimateNetwork
+    - Cached: overhauled caching
+  - additional or revised functionality in classes
+    - Network: weighted betweenness measures
+    - MapPlot: simplify with cartopy
+    - Surrogates: refactor API for OO conformity
+    - RecurrencePlot, CoupledClimateNetwork, InteractingNetworks: added functionality by jkroenke
 
 
 # Research impact statement
+\label{research_impact_statement}
 
 *Prompt: Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
 
