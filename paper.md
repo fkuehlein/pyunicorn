@@ -37,49 +37,41 @@ bibliography: paper.bib
 
 *Prompt: A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*
 
-Pyunicorn is a toolbox for complex systems analysis that is written in Python and C.
+Pyunicorn is a toolbox for complex systems analysis that is written in Python and C. Pyunicorn contains implementations of highly specialised methods that derive from the synthesis of network theory and timeseries analysis, but can also serve as a general-purpose tool for complex networks. Pyunicorn is fast, as computationally expensive functions are written in C, or precompiled via Cython. It can easily be parallelized on large cluster architectures with the built-in MPI helper.
 
-It was first published with @donges_unified_2015 and has been maintained as an open source project since. The library has continuously grown over the years as scientists and users took the chance to contribute. These contributions have originated both from within and outside the direct proximity of the initial developers. The project has been maintained by young researchers, most of which master students supervised by J. Donges, B. Beronov and R. Donner.
+The package was first published with @donges_unified_2015 and has been maintained as an open source project since. The library has continuously grown over the years as scientists and other users took the chance to contribute. These contributions have originated both from within and outside the direct proximity of the initial developers. Maintenance work on the project was largely provided by young researchers, usually master students supervised by J. Donges, B. Beronov and R. Donner.
 
 With a growing codebase and fluctuating levels of funding and expertise available, it has proven difficult to keep up the maintenance to a solid standard over time. Therefore by 2023, a significant maintenance backlog had accumulated despite the efforts of a row of dedicated maintainers.
 
-Over the last 3 years, we were able to coordinate as a small group to combine the needed expertise and working-hours and tackle a great chunk of overdue maintenance. We thereby put Pyunicorn back on track and available for its userbase. A couple of extra features and timely adaptations have further been issued.
+Over the last 3 years, we were able to coordinate as a small group to combine the needed expertise and working-hours and tackle a great chunk of overdue maintenance. We have thereby put Pyunicorn back on track and available for its userbase. A couple of extra features and timely adaptations have further been issued.
 
-This process can serve as a working example of maintaining highly specialised scientific software over a timeframe that is quite long relative to typical innovation-rates in soft- and hardware - and prove its feasability under the given resource limitations.
+This process can serve as a working example of keeping highly specialised scientific software alive over a timeframe that is quite long relative to typical innovation-rates in computational soft- and hardware. Pyunicorn is good proof of the feasability of such a project under the given resource limitations.
 
-More importantly though, Pyunicorn is now a more versatile and robust tool than ever and therefore deserves 'a follow-up publication'. 
+More importantly though, after over 10 years of gradual development Pyunicorn is now a more versatile and robust tool than ever and therefore deserves the attention of this re-issue. 
 
 
 # Statement of need
 
 *Prompt: A section that clearly illustrates the research purpose of the software and places it in the context of related work. This should clearly state what problems the software is designed to solve, who the target audience is, and its relation to other work.*
 
-Two key arguments for the *need* of this follow-up *publication* (not the package itself):
-1. pyunicorn is now versatile and packed as ever and deserves an up-to-date publication
-2. it makes sense to keep highly specialised, although "legacy" code alive and maintained over time
+Potential research purposes of Pyunicorn have extensively been laid out in @donges_unified_2015. The publications in \ref{research_impact_statement} showcase further interesting applications.
 
+More than 10 years of development have proven Pyunicorn to be worth keeping alive, as new and unforeseen applications and enhancements continue to come about. (Blabla sentence I know)
 
-Research purpose: See Pyunicorn paper
+With this in mind, the question of need is therefore sensibly pointed not to the package per-se, but to the re-issue at this point in time. *And to Version 1.0?*
 
-
-What problems is it designed to solve?
-
-
-Who is the target audience?
-
-
-Therefore: *Need* to maintain such software over a long time, with minimal resources. 
+There are two key motivations for this. Firstly, Pyunicorn proves that it makes sense to keep a highly specialised, although "legacy" codebase alive and maintained over a long time. Secondly, Pyunicorn is now versatile and packed as ever and deserves an update to its original publication.
 
 
 # State of the field
 
 *Prompt: A description of how this software compares to other commonly-used packages in the research area. If related tools exist, provide a clear “build vs. contribute” justification explaining your unique scholarly contribution and why existing alternatives are insufficient.*
 
-Pyunicorn, is designed to unify methods from complex network theory and timeseries analysis under a single hood and – more importantly – deriving further specialised and more uncommon methods from this synthesis. Many of these derived methods have been established by affiliated research groups themselves and Pyunicorn currently provides their only public and maintained implementation.
+Pyunicorn, is designed to unify methods from complex network theory and timeseries analysis under a single hood and – more importantly – deriving further specialised and more uncommon methods from this synthesis. Many of these derived methods have been established by affiliated research groups themselves and Pyunicorn currently provides their only actively maintained and publicly available implementation.
 
-A row of Python libraries cover different aspects of Pyunicorn's functionality respectively. [`PyRQA`](https://pypi.org/project/PyRQA/) is a more recently published tool for performing recurrence quantitative analysis on large datasets effectively [@rawald_pyrqa_2017]. Users who seek to perform surrogate timeseries generation can resort to the Surrogate Modeling Toolbox [`smt`](https://pypi.org/project/smt/). Moreover, long established Python libraries such as [`networkx`](https://networkx.org) and [`python-igraph`](https://python.igraph.org) extensively cover network and graph calculations.
+A row of Python libraries cover different aspects of Pyunicorn's functionality respectively. [`PyRQA`](https://pypi.org/project/PyRQA/) is a more recently published tool for performing recurrence quantitative analysis on large datasets in a computationally efficient way [@rawald_pyrqa_2017]. Users who seek to perform surrogate timeseries generation can resort to the Surrogate Modeling Toolbox [`smt`](https://pypi.org/project/smt/). Moreover, long established Python libraries such as [`networkx`](https://networkx.org) and [`python-igraph`](https://python.igraph.org) extensively cover network and graph calculations.
 
-Yet, over 10 years after its first publication, Pyunicorn currently still finds itself in the unique position to feature functionality that bridges many of these fields and adds to established packages. In fact, Pyunicorn's backbone `Network` class is built around `Graph` objects from `python-igraph`, but expands it to variations of network theory such as Interacting Networks, node-splitting-invariant measures, etc. (to be improved).
+Yet, over 10 years after its first publication, Pyunicorn currently still finds itself in the unique position to feature functionality that bridges many of these fields and adds to established packages. In fact, Pyunicorn's backbone `Network` class is built around `Graph` objects from `python-igraph`. Yet, it expands its functionality to variations of network theory such as Interacting Networks, node-splitting-invariant measures, etc. *(to be improved)*.
 
 The contained methods have especially been developed and applied in the context of climate and earth system sciences. The generality of the network approach, however, allows for a much wider applicability.
 
@@ -128,6 +120,11 @@ For a full record of additions to the package since its original publication see
 Pyunicorn has been applied in a row of published analysis right after its first publication.
 
 Recently, it has been applied in my Master's thesis and almost put into TOAD.
+
+
+# Conclusion
+
+*Optional, might want to add*
 
 
 # AI usage disclosure
