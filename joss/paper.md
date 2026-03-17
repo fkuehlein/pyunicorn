@@ -37,11 +37,9 @@ bibliography: paper.bib
 
 *Required Section: A description of the high-level functionality and purpose of the software for a diverse, non-specialist audience.*
 
-Pyunicorn is a toolbox for complex systems analysis that is written in Python and C. Pyunicorn contains implementations of highly specialised methods that derive from the synthesis of network theory and timeseries analysis, but can also serve as a general-purpose tool for the construction of complex networks. Pyunicorn is fast, as computationally expensive functions are written in C or precompiled via [Cython](cython.org). It can easily be parallelized on large cluster architectures with the built-in MPI helper.
+Pyunicorn is a toolbox for complex systems analysis that is written in Python and C. The package contains implementations of highly specialised methods that derive from the synthesis of network theory and timeseries analysis, but can also serve as a general-purpose tool for the construction of complex networks. Pyunicorn is fast, as computationally expensive functions are written in C or precompiled via [Cython](https://cython.org). It can easily be parallelized on large cluster architectures with the built-in MPI helper.
 
-The package was first published with @donges_unified_2015 and has been maintained as an open source project since. After more than a decade of consistent/repeated feature contribution but fluctuating resources for package maintenance, we faced a growing need for a concentrated effort that resulted in a series of minor version releases over the last 3 years. This publication accompanies Pyunicorn's first major version release, an overdue step reflecting Pyunicorn's establishment in open source scientific software.
-
-Pyunicorn v1.0 features a range of added functionality and has grown more versatile and robust.
+The package was first published with @donges_unified_2015 and has been maintained as an open source project since. After more than a decade of consistent feature contributions but fluctuating availability of resources for maintenance, we have recently coordinated concentrated efforts to enable a series of minor version releases. This publication accompanies Pyunicorn's first major version release (cf. [semver.org](https://semver.org)), an overdue step reflecting Pyunicorn's establishment as open source scientific software. Pyunicorn v1.0 features a range of additional functionality and includes years of maintenance work making the package more versatile and robust.
 
 Highly specialised scientific software is published more and more frequently. Not least, we aim to put some counterweight on the integrated development and long-term maintenance of such projects despite them naturally growing more complex over time. This ambition of ours is of course spurred by the steadily rising number of scientific publications that have employed Pyunicorn to date. 
 
@@ -54,9 +52,9 @@ Potential research purposes of Pyunicorn have been laid out in @donges_unified_2
 
 There are two key motivations for this. Firstly, Pyunicorn proves that it makes sense to keep a highly specialised codebase alive and maintained over a long time. Secondly, the work we recently invested in the project and that ultimately lead to the release of version 1.0 justifies an update to the original publication.
 
-Pyunicorn has continuously grown over the years as scientists and other users took the chance to contribute. These contributions have originated both from within and outside the direct proximity of the initial developers. Maintenance work on the project was largely provided by early career scientists, often master students supervised by J. Donges, B. Beronov and R. Donner.
+Pyunicorn has continuously grown over the years as scientists and other users took the chance to contribute. ~~These contributions have originated both from within and outside the direct proximity of the initial developers. Maintenance work on the project was largely provided by early career scientists, often master students supervised by J. Donges, B. Beronov and R. Donner.~~
 
-With a growing codebase and fluctuating levels of funding and expertise available, it has proven challenging to maintain the package to a solid standard over time. Over the last 3 years, we were able to coordinate as a small group combining the needed expertise and working-hours to tackle a significant maintenance backlog. A row of minor version releases have since been issued which contain additional features and reasonable adaptations. Eventually this brought us to the realization that the release of version 1.0.0 was overdue (cf. semver.org).
+With a growing codebase and fluctuating levels of funding and expertise available, it has proven challenging to maintain the package to a solid standard over time. Over the last 3 years, we were able to coordinate as a small group combining the needed expertise and working-hours to tackle a significant maintenance backlog. A row of minor version releases have since been issued which contain additional features and worthwile adaptations. Eventually this brought us to the realization that the release of version 1.0.0 was overdue.
 
 Pyunicorn may serve as an example for the feasability of the long-term maintenance of open-source scientific software under the typical fluctuations of available resources. More importantly though, Pyunicorn is now a more versatile and robust tool than ever and therefore deserves the attention of this re-issue alongside its first major version release.
 
@@ -67,10 +65,8 @@ Pyunicorn may serve as an example for the feasability of the long-term maintenan
 
 Pyunicorn, is designed to unify methods from complex network theory and timeseries analysis under a single hood and – more importantly – derives further specialised and more uncommon methods from this synthesis. Many of these derived methods have been established by affiliated research groups themselves. Pyunicorn currently provides their only actively maintained and publicly available implementation.
 
-There is a row of existing Python libraries that cover different aspects of Pyunicorn's functionality respectively. [`PyRQA`](https://pypi.org/project/PyRQA/) is a more recently published tool for performing recurrence quantitative analysis that is optimized for handling large datasets [@rawald_pyrqa_2017]. 
-*@pessa_ordpy_2021 provide a sophisticated package for timeseries analysis with ordinal networks (how does it compare to pyunicorn functionality-wise?)*
-*might want to include `irreversibility` and `pynamicalsys` packages here, too (both 2025)*
-Users who seek to perform surrogate timeseries generation can resort to the Surrogate Modeling Toolbox [`smt`](https://pypi.org/project/smt/). Moreover, long established Python libraries such as [`networkx`](https://networkx.org) and [`python-igraph`](https://python.igraph.org) extensively cover network and graph calculations.
+There is a row of existing Python libraries that cover different aspects of Pyunicorn's functionality respectively. [`PyRQA`](https://pypi.org/project/PyRQA/) is a more specialised tool for performing recurrence quantitative analysis that is optimized for handling large datasets [@rawald_pyrqa_2017]. 
+[@pessa_ordpy_2021] provide a sophisticated package for timeseries analysis with ordinal networks named [`ordpy`](https://pypi.org/project/ordpy/). Users who seek to perform surrogate timeseries generation can resort to the Surrogate Modeling Toolbox [`smt`](https://pypi.org/project/smt/). More recently, the python packages [`irreversibility`](https://pypi.org/project/irreversibility/) (for irreversibility tests of timeseries, cf. @zanin_irreversibility_2025) and [`pynamicalsys`](https://pypi.org/project/pynamicalsys/) (for dynamical systems analysis, cf. @sales_pynamicalsys_2025) have been added to the mix of related software. Moreover, long established Python libraries such as [`networkx`](https://networkx.org) and [`python-igraph`](https://python.igraph.org) extensively cover network and graph calculations.
 
 Yet, Pyunicorn has maintained its unique position in bridging the above fields while adding to established packages. For instance, Pyunicorn's backbone `Network` class is built around `Graph` objects from `python-igraph` and expands its functionality to more uncommon/specialised variations of network theory such as interacting networks or node-splitting-invariant measures. Yet, the core strength of the package lies in seamlessly integrating network handling with timeseries analysis methods, as in recurrence network analysis or climate networks.
 
@@ -81,11 +77,11 @@ The contained methods have especially been developed and applied in the context 
 
 *Required Section: An explanation of the trade-offs you weighed, the design/architecture you chose, and why it matters for your research application. This should demonstrate meaningful design thinking beyond a superficial code structure description.*
 
-Pyunicorn v1.0 continues the original implementation philosophy of the package, which is to provide a common container for conceptually related methods co-developed in affiliated research groups. By adopting a modular class-inheritance structure, the mathematical relationships and historical development of methods are intuitively reflected. This intuition is, for example, realised in the `RecurrenceNetwork` class, which is a child of the `Network` and `RecurrencePlot` classes (see fig. 2).
+Pyunicorn v1.0 continues the original implementation philosophy of the package, which is to provide a common container for conceptually related methods co-developed in affiliated research groups. By adopting a modular class-inheritance structure, the mathematical relationships and historical development of methods are intuitively reflected. A simple  intuition is, for example, realised in the `RecurrenceNetwork` class, which is a child of the `Network` and `RecurrencePlot` classes (see fig. 2).
 
 ![Pyunicorn currently contains 6 modules.](img/module_overview.png)
 
-![Inheritance and composition hierarchies reflect the mathematical relationships of methods.](img/class_inheritance.png)
+![Inheritance and composition hierarchies reflecting the mathematical relationships of methods, at the example of the `RecurrenceNetwork` class.](img/class_inheritance.png)
 
 ~~A thorough description of the package structure is given in @donges_unified_2015 and in the package documentation.~~
 
@@ -115,9 +111,9 @@ For a full record of additions to the package since its original publication see
 
 *Required Section: Evidence of realized impact (publications, external use, integrations) or credible near-term significance (benchmarks, reproducible materials, community-readiness signals). The evidence should be compelling and specific, not aspirational.*
 
-*there's a (complete?) list of 91 pyunicorn-citations: https://pubs.aip.org/cha/crossref-citedby/134592/1. below is a quick attempt to select a representative set of those who actually employ Pyunicorn.*
-
 Pyunicorn has continuously been employed in research from a range of disciplines since its first publication.
+
+*there is a (complete?) [list of 91 pyunicorn-citations](https://pubs.aip.org/cha/crossref-citedby/134592/1). below is a quick attempt to select a representative set of those who actually employ Pyunicorn.*
 
 *affiliated:*
 
@@ -141,7 +137,7 @@ Pyunicorn has continuously been employed in research from a range of disciplines
 *not affiliated:*
 
 - @mullin_lhc_2021; nsi network measures, apparently in contact with Jobst/Jona
-- @george_beutelgeuse_2020; use pyunicorn recurrence-analysis for early-warning
+- @george_betelgeuse_2020; use pyunicorn recurrence-analysis for early-warning
 - @silini_transferentropy_2021; calculate transfer entropy with pyunicorn, for reference to their method
 - @sales_stickiness_2023: Stickiness and recurrence plots; Use pyunicorn for all recurrence matrix evaluations.
 - @lechner_abnormal_2024: ; using AAFT surrogates for statistical tests
@@ -160,6 +156,6 @@ FK has written the manuscript and coordinated software maintenance and release. 
 
 # Acknowledgements
 
-We acknowledge all code and bug-report contributions to Pyunicorn that have been issued over the years. We are especially thankful for the code and maintenance work provided by Max Bechtold, Ronja Hotz and Jonathan Kroenke. Besides the direct coding work, we would like to thank Pyunicorn's original co-developer Jobst Heitzig for his consistent availability.
+We acknowledge all code and bug-report contributions to Pyunicorn that have been issued over the years. We are especially thankful for the code and maintenance work provided by Max Bechtold, Ronja Hotz and Jonathan Kroenke. Besides the direct coding work, we would like to thank Pyunicorn's original co-developer Jobst Heitzig for his availability for consultation.
 
 # References
