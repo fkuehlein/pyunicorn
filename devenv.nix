@@ -3,29 +3,23 @@
 
 { pkgs, lib, config, inputs, ... }:
 
-let
-  buildInputs = with pkgs; [ stdenv.cc.cc libuv zlib ];
-in
-
 {
-  env = {
-    LD_LIBRARY_PATH = "${with pkgs; lib.makeLibraryPath buildInputs}";
-  };
+  packages = with pkgs; [ stdenv.cc.cc zlib git pandoc ];
 
-  packages = with pkgs; [
-    git pandoc
-  ];
+  cachix.enable = true;
+  cachix.pull = [ "nixpkgs-python" ];
 
   languages.python = {
     enable = true;
-    package = pkgs.python314;
+    version = "3.14";
+    venv.enable = true;
     uv = {
       enable = true;
-      sync.enable = true;
+      sync = {
+        enable = true;
+        allGroups = true;
+        allExtras = true;
+      };
     };
   };
-
-  enterShell = ''
-    . .devenv/state/venv/bin/activate
-  '';
 }
