@@ -84,6 +84,39 @@ For a full record of additions to the package since its original publication see
 
 Pyunicorn has continuously been employed in research from a range of disciplines since its first publication.
 
+Pyunicorn has mainly been employed for research in
+- Climate Sciences [@broni-bedaikoNinoSouthernOscillationForecasting2019; @caesarRelationshipAtlanticMeridional2020; @donges2015b; @ekhtiariCoupledNetworkAnalysis2021; @frankeDynamicalAnomaliesTerrestrial2017; @frankeReconstructingLateHolocene2017; @lekschaDetectingDynamicalAnomalies2020; @lekschaPhaseSpaceReconstruction2018; @marwan2021; @moinatTippingDetectionUsing2024; @nockeReviewVisualAnalytics2015; @odenwellerDisentanglingSynchronySerial2020; @oluwoleDynamicRegimesNino2017; @sumitEmergingCirculationPatterns2026; @wiedermannClimateNetworkbasedIndex2016; @wolfClimateNetworkPerspective2021; @wolfSpatialOrganizationConnectivity2021; @wolfSpatiotemporalPatternsSynchronous2021]
+- Complex Systems Science [@geierBuildingFunctionalNetworks2024; @medranoRadiusSelectionUsing2021; @salesStickinessRecurrencePlots2023; @subramaniyamSignaturesChaoticStochastic2015; @wiedermannSpatialNetworkSurrogates2016]
+
+However, it has also been employed in a range of other fields, such as
+- Astrophysics [@broadbentCorrelatedSpectralRecurrence2023; @georgeEarlyWarningSignals2020; @kashyapDynamicallyDerivedMorphology2025; @phillipsonInvestigatingNonlinearStochastic2023]
+- Space Weather [@albertiDisentanglingNonlinearGeomagnetic2020; @donnerRecurrenceBasedQuantificationDynamical2019]
+- Engineering [@waxenegger-wilfingEarlyDetectionThermoacoustic2021]
+- Particle Physics [@mullinDoesSUSYHave2021]
+- Geophysics/Seismology [@talavera-sozaConstraining3DVariations2023]
+- Evolutionary Sciences [@bekeraiteTransitionsMultistabilityMacroevolutionary2025]
+- Neuro- and Life Sciences [@amemiyaCausalInteractionMetabolic2025; @frolovApplyingRecurrenceTime2023; @maksimenkoNeuralInteractionsSpatiallyDistributed2019; @oluwoleDynamicRegimesNino2017]
+
+Applications employ a wide range of Pyunicorn's functionality, from more common to more specialised methods:
+
+Complex Network Analysis
+Climate Network Analysis
+  especially Coupled Climate Networks
+Recurrence Analysis
+  Recurrence Network Analysis
+Timeseries Surrogates for statistical tests
+
+
+Selection of outstanding applications:
+- one that heavily relies on Pyunicorn
+- the LHC one
+- the evolutionary one
+- El Nino and Influenza?
+- one that is a nature publication or so
+
+These selected applications show how the numerical methods provided with Pyunicorn continue to be highly relevant and catalyze research across scientific disciplines.
+
+
 *affiliated:*
 
 - @donges_monsoon_2015; recurrence network analysis
