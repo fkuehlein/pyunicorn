@@ -1,3 +1,4 @@
+---
 title: 'pyunicorn v1.0: An established Python toolbox for complex systems science'
 tags:
   - Python
@@ -23,8 +24,7 @@ authors:
     surname: Donges
     affiliation: "1, 2, 4"
 affiliations:
- - name: Earth Resilience Science Unit, Potsdam Institute for Climate Impact Research, Member of the Leibniz Association,
-Telegrafenberg A31, D-14473 Potsdam, Germany
+ - name: Earth Resilience Science Unit, Potsdam Institute for Climate Impact Research, Member of the Leibniz Association, Telegrafenberg A31, D-14473 Potsdam, Germany
    index: 1
  - name: Max Planck Institute of Geoanthropology, Germany
    index: 2
@@ -39,7 +39,6 @@ Telegrafenberg A31, D-14473 Potsdam, Germany
 date: 10 March 2026
 bibliography: paper.bib
 ---
-
 
 # Summary
 
