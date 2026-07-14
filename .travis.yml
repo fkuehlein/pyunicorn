@@ -73,13 +73,13 @@ install:
     travis_retry conda install -c conda-forge \
         numpy scipy python-igraph h5netcdf[h5py] tqdm \
         ipython networkx matplotlib cartopy sphinx nbsphinx \
-        tox flake8 pylint pytest-xdist pytest-cov
+        tox ruff pytest-xdist pytest-cov
     conda info -a
     conda list
 
 script:
   - | # install Python libs via Pip: self (+ dependencies, if on Windows)
-    travis_retry pip install -v -e . --group tests --group docs
+    travis_retry pip install -v -e . --group test --group docs
   - | # run test suite
     tox -v
 
