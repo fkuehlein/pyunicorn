@@ -93,7 +93,7 @@ default-groups = ["dev", "tests", "docs"]
 Homepage = "https://www.pik-potsdam.de/members/donges/software-2/software"
 Documentation = "http://www.pik-potsdam.de/~donges/pyunicorn/"
 Repository = "https://github.com/pik-copan/pyunicorn"
-Changelog = "https://github.com/pik-copan/pyunicorn/blob/master/CHANGELOG.rst"
+Changelog = "https://github.com/pik-copan/pyunicorn/blob/main/CHANGELOG.rst"
 Issues = "https://github.com/pik-copan/pyunicorn/issues"
 
 [tool.setuptools]

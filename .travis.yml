@@ -20,7 +20,7 @@
 version: ~> 1.0
 
 # save Travis budget
-if: branch = master
+if: branch = main
 
 # report outcomes
 notifications:

@@ -2,10 +2,10 @@
 pyunicorn
 =========
 
-.. image:: https://app.travis-ci.com/pik-copan/pyunicorn.svg?branch=master
+.. image:: https://app.travis-ci.com/pik-copan/pyunicorn.svg?branch=main
   :target: https://app.travis-ci.com/github/pik-copan/pyunicorn
 
-.. image:: https://codecov.io/gh/pik-copan/pyunicorn/branch/master/graph/badge.svg
+.. image:: https://codecov.io/gh/pik-copan/pyunicorn/branch/main/graph/badge.svg
   :target: https://codecov.io/gh/pik-copan/pyunicorn
 
 .. image:: https://img.shields.io/pypi/v/pyunicorn
@@ -150,7 +150,7 @@ Tutorials
 ---------
 
 For some example applications look into the
-`tutorials <https://github.com/pik-copan/pyunicorn/tree/master/docs/source/examples/tutorials>`_ provided with the documentation.
+`tutorials <https://github.com/pik-copan/pyunicorn/tree/main/docs/source/examples/tutorials>`_ provided with the documentation.
 They are designed to be self-explanatory, and are set up as Jupyter notebooks.
 
 Development
