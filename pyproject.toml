@@ -85,6 +85,9 @@ docs = [
   "pandoc>=2.4",
   "matplotlib>=3.10",
 ]
+ci = [
+  "codecov>=2.1.13",
+]
 
 [tool.uv]
 default-groups = ["dev", "test", "docs"]
