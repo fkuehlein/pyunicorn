@@ -86,6 +86,7 @@ Getting Started
 
 Installation
 ------------
+
 Official releases
 .................
 `Stable releases <https://pypi.org/project/pyunicorn/#history>`_ can be
@@ -136,11 +137,10 @@ and *Windows*, and relies on the following packages:
   - `Jupyter Notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`_
     (for tutorial notebooks)
 
-
 Documentation
 -------------
 For extensive HTML documentation, jump right to the `homepage
-<http://www.pik-potsdam.de/~donges/pyunicorn/>`_. In a local source tree,
+<http://pyunicorn.readthedocs.io/>`_. In a local source tree,
 HTML and PDF documentation can be generated using ``Sphinx``::
 
     $> pip install --group docs
@@ -148,10 +148,11 @@ HTML and PDF documentation can be generated using ``Sphinx``::
 
 Tutorials
 ---------
+For some example applications, look into the self-explanatory tutorial
+notebooks: either in the documentation section :ref:`tutorials`, or in the
+corresponding `source folder
+<https://github.com/pik-copan/pyunicorn/tree/main/docs/source/examples/tutorials>`_.
 
-For some example applications look into the
-`tutorials <https://github.com/pik-copan/pyunicorn/tree/main/docs/source/examples/tutorials>`_ provided with the documentation.
-They are designed to be self-explanatory, and are set up as Jupyter notebooks.
 
 Development
 ===========
